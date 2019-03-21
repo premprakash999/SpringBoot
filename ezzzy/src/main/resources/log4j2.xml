@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Appenders>
+		<Console name="ConsoleAppender" target="SYSTEM_OUT">
+			<!-- <PatternLayout pattern="%d{MM:dd HH:mm:ss.SSS} [%t] [%level] [%logger{36}] 
+				- %msg%n" /> -->
+			<JSONLayout compact="true" eventEol="true"
+				properties="false">
+				</JSONLayout>
+		</Console>
+
+
+		<RollingFile name="FileAppender"
+			fileName="C:/Prem/log/Application1.log"
+			filePattern="C:/Prem/log/1Application_Roll-%d{yyyy-MM-dd}-%i.log">
+			<!-- <PatternLayout> <Pattern>%d{MM:dd HH:mm:ss.SSS} [%t] [%level] [%logger{36}] 
+				- %msg%n </Pattern> </PatternLayout> -->
+			<JSONLayout compact="true" eventEol="true"
+				properties="true" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="1 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="5" />
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<!-- Logging custom package -->
+		<Logger name="com.neptune.restservice" level="error"
+			additivity="false">
+			<AppenderRef ref="ConsoleAppender"></AppenderRef>
+			<AppenderRef ref="FileAppender"></AppenderRef>
+		</Logger>
+		<!-- Logging spring boot package -->
+		<Logger name="org.springframework.boot" level="debug"
+			additivity="false">
+			<AppenderRef ref="ConsoleAppender"></AppenderRef>
+			<AppenderRef ref="FileAppender"></AppenderRef>
+		</Logger>
+		<Root level="error">
+			<AppenderRef ref="ConsoleAppender"></AppenderRef>
+			<AppenderRef ref="FileAppender"></AppenderRef>
+		</Root>
+	</Loggers>
+</Configuration>
